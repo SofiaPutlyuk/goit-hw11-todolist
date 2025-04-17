@@ -2,7 +2,8 @@ import React, { Fragment } from "react";
 import TodoList from "./TodoList";
 import Info from "./Info";
 import styled from "styled-components";
-
+import Task from './Task';
+import todo from '../json/todo.json'
 const Textarea = styled.textarea`
   width: 500px;
   height: 70px;
@@ -34,26 +35,16 @@ const Button = styled.button`
   height: 40px;
 `;
 
+
+
 class TodoEditor extends React.Component {
   state = {
-    tasks: [],
+    tasks: JSON.parse(localStorage.getItem("Task")) || todo,
     textValue: "",
     isDone: false,
   };
 
-  componentDidMount() {
-    const storedTasks = localStorage.getItem("Task");
-    if (storedTasks) {
-      this.setState({ tasks: JSON.parse(storedTasks) });
-    } else {
-      fetch("/todo.json")
-        .then((res) => res.json())
-        .then((data) => {
-          this.setState({ tasks: data });
-          localStorage.setItem("Task", JSON.stringify(data));
-        });
-    }
-  }
+
 
   handleTask = ({ target: { value } }) => {
     this.setState({
@@ -138,6 +129,7 @@ class TodoEditor extends React.Component {
           deleteButton={this.handleDelete}
           istaskDone={this.handleChecked}
         />
+         <Task />
       </Fragment>
     );
   }

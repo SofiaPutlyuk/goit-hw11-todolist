@@ -19,6 +19,7 @@ class App extends React.Component {
           filter={this.state.filter}
           onFilterChange={this.handleFilterChange}
         />
+      
          <TodoEditor filter={this.state.filter} />
       </div>
     );
